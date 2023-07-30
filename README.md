@@ -20,7 +20,7 @@ python Main.py "PATH_TO_DIR" [OPTIONAL] "PATH_TO_SAVE_RESULTS"
 Example with a test_data, position yourself in a StatisticalImageAnalysis directory
 
 ```
-python code/Main.py "test_data/*gif" 
+python code/Main.py "data/*.jpg" "./statistics_%s.png""
 ```
 
 ### TODO
