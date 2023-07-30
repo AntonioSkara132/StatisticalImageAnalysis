@@ -17,11 +17,18 @@ python Main.py "PATH_TO_DIR" [OPTIONAL] "PATH_TO_SAVE_RESULTS"
 
 #### Examples
 
-Example with a test_data, position yourself in a StatisticalImageAnalysis directory
+Example with directly saving the results to a specific path:
 
 ```
 python code/Main.py "data/*.jpg" "./statistics_%s.png""
 ```
+
+Example without saving the results
+
+```
+python code/Main.py "test_data/*.gif"
+```
+
 
 ### TODO
 
