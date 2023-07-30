@@ -12,7 +12,7 @@ pip install -r requirements.txt
 2. Run the `Main.py` script with the following arguments:
 
 ```
-python Main.py "PATH_TO_DIR"
+python Main.py "PATH_TO_DIR" [OPTIONAL] "PATH_TO_SAVE_RESULTS"
 ```
 
 #### Examples
