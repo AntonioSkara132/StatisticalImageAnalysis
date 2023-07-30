@@ -19,5 +19,4 @@ python Main.py "PATH_TO_DIR"
 
 ### TODO
 
-- [ ] Make the argument input type agnostic -> change `*.xml` and user-friendly `%s`
 - [ ] Clean up code to make it reusable for other modalities and following pep-8 standards
