@@ -1,5 +1,4 @@
 import sys
-
 import ImageStatisticalAnalysisUtils as isa
 import matplotlib.pyplot as plt
 
