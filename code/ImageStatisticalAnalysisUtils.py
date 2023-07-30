@@ -1,7 +1,7 @@
 import glob
 import matplotlib.pyplot as plt
 import numpy as np
-from skimage import io
+from PIL import Image
 
 def get_file_paths(directory_path: 'str') -> list:
     """Return a list of paths matching a pathname pattern."""
@@ -22,7 +22,7 @@ class GalleryAnalyzer:
         files = get_file_paths(file_dir)
         print(files)
         for image in files:
-            data = np.array(io.imread(image, as_gray=True).ravel())
+            data = np.array(Image.open(image).convert('L')).ravel()
             self.freqs = addFrequencies(self.freqs, data)
             self.imageStats.append((Stats(data)))
 
