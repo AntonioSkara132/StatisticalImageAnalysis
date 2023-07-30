@@ -20,7 +20,7 @@ class GalleryAnalyzer:
 
     def __init__(self, file_dir: "str"):
         files = get_file_paths(file_dir)
-        print(files)
+        #print(files)
         for image in files:
             data = np.array(Image.open(image).convert('L')).ravel().astype(int)
             self.freqs = addFrequencies(self.freqs, data)
@@ -33,7 +33,6 @@ class GalleryAnalyzer:
     def createMiHistogram(self, bins=256):
         """creates histogram using the average values of the images"""
         mi_s = np.array(list(map(lambda x:np.round(x.getMi()), self.imageStats)))
-        print(mi_s)
         _ = plt.hist(mi_s, bins=bins, color = 'blue', alpha = 0.5)
         #plt.show()
 
