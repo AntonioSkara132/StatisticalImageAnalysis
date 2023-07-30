@@ -3,7 +3,6 @@ import ImageStatisticalAnalysisUtils as isa
 import matplotlib.pyplot as plt
 
 def main():
-    #dir_path = "data/*.gif"
 
     if sys.argv[0]:
         dir_path = sys.argv[1]
@@ -11,6 +10,7 @@ def main():
         print("No directory specified!")
         exit(-1)
 
+    dir_path = "data/*.jpg"
     MyGa = isa.GalleryAnalyzer(dir_path)
     plt.figure()
     MyGa.createCommonHistogram()
