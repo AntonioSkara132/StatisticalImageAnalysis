@@ -22,7 +22,7 @@ class GalleryAnalyzer:
         files = get_file_paths(file_dir)
         print(files)
         for image in files:
-            data = np.array(Image.open(image).convert('L')).ravel()
+            data = np.array(Image.open(image).convert('L')).ravel().astype(int)
             self.freqs = addFrequencies(self.freqs, data)
             self.imageStats.append((Stats(data)))
 
