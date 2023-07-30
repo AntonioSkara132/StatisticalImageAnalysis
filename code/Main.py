@@ -1,17 +1,24 @@
-import concept2
+import sys
+
+import ImageStatisticalAnalysisUtils as isa
 import matplotlib.pyplot as plt
 
-import concept1
 def main():
-    dir_path = "data/"
-    MyGa = concept2.GalleryAnalyzer(dir_path)
+    dir_path = "data2/*.gif"
+
+
+
+    MyGa = isa.GalleryAnalyzer(dir_path)
+    plt.figure()
     MyGa.createCommonHistogram()
-    filter = lambda x:
-    #MyGa.createMiHistogram(bins=32)
-    #MyGa.createSdHistogram(bins=32)
-    #MyGa.createMedHistogram(bins=32)
-    MyGa.showHistograms()
-    #MyGa.createCommonHistogram()
+    plt.title("Pixel distribution")
+    plt.figure()
+    MyGa.createMedHistogram(bins = 32)
+    MyGa.createMiHistogram(bins = 32)
+    MyGa.createSdHistogram(bins = 32)
+    _ = plt.legend(['Median', 'Average', 'Standard Deviation'])
+    plt.title("Statistical data")
+    plt.show()
 
 if __name__ == "__main__":
         main()
