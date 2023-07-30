@@ -4,9 +4,13 @@ import ImageStatisticalAnalysisUtils as isa
 import matplotlib.pyplot as plt
 
 def main():
-    dir_path = "data2/*.gif"
+    #dir_path = "data/*.gif"
 
-
+    if sys.argv[0]:
+        dir_path = sys.argv[1]
+    else:
+        print("No directory specified!")
+        exit(-1)
 
     MyGa = isa.GalleryAnalyzer(dir_path)
     plt.figure()

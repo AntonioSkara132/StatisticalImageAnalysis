@@ -4,21 +4,22 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 
-def get_file_paths(directory_path):
+def get_file_paths(directory_path: 'str') -> list:
     """Return a list of paths matching a pathname pattern."""
     return glob.glob(directory_path)
 
-def addFrequencies(freqs, mat):
+def addFrequencies(freqs, list):
     """Counts index values"""
-    for i in mat:
+    for i in list:
         freqs[i] += 1
     return freqs
 
 class GalleryAnalyzer:
+    "Calculates statistical analysis for a given set of images, and creates histograms"
     imageStats = []
     freqs = np.zeros([256])
 
-    def __init__(self, file_dir):
+    def __init__(self, file_dir: "str"):
         files = get_file_paths(file_dir)
         print(files)
         for image in files:
@@ -26,22 +27,25 @@ class GalleryAnalyzer:
             self.freqs = addFrequencies(self.freqs, data)
             self.imageStats.append((Stats(data)))
 
-    def getImageStatistics(self):
+    def getImageStatistics(self) -> list:
+        """returns list of Stats instances, Stats store statistical information od images in dataset"""
         return self.imageStats
 
     def createMiHistogram(self, bins=256):
+        """creates histogram using the average values of the images"""
         mi_s = np.array(list(map(lambda x:np.round(x.getMi()), self.imageStats)))
         print(mi_s)
         _ = plt.hist(mi_s, bins=bins, color = 'blue', alpha = 0.5)
         #plt.show()
 
     def createSdHistogram(self, bins=256):
+        """creates a histogram using the standard deviations of the images"""
         sd_s = np.array(list(map(lambda x:np.round(x.getSd()), self.imageStats)))
         _ = plt.hist(sd_s, bins=bins, color = 'red', alpha = 0.5)
         #plt.show()
 
     def createMedHistogram(self, bins=256):
-        """Creates histogram using average pixel value of every image in a directory"""
+        """"creates a histogram using the median values of the images"""
         med_s = np.array(list(map(lambda x:np.round(x.getMed()), self.imageStats)))
         _ = plt.hist(med_s, bins=bins, color = 'green', alpha = 0.5)
         #plt.show()
@@ -79,6 +83,7 @@ class GalleryAnalyzer:
         plt.hist(intensities, bins=bins, weights=self.freqs)
 
 class Stats:
+    "Calculates and stores statistical information about given data"
     data = []
     def __init__(self, data):
         self.data = data
