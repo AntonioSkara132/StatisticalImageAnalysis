@@ -4,15 +4,14 @@ import matplotlib.pyplot as plt
 
 def main():
 
-    dir_path = "/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/*.jpg"
-    """
+    #dir_path = "/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/*.jpg"
+
     if sys.argv[0]:
         dir_path = sys.argv[1]
     else:
         print("No directory specified!")
         exit(-1)
-    """
-    print(dir_path)
+
     MyGa = isa.GalleryAnalyzer(dir_path)
     plt.figure()
     MyGa.createCommonHistogram()
