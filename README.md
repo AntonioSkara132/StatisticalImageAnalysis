@@ -1,5 +1,5 @@
 # StatisticalImageAnalysis
-Computation of the dataset statistics of the "omco_prsteni" dataset.
+Simple image statistical analysis software
 
 ### Usage
 
