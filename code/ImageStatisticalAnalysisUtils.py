@@ -29,25 +29,18 @@ class GalleryAnalyzer:
     def getImageStatistics(self) -> list:
         """returns list of Stats instances, Stats store statistical information od images in dataset"""
         return self.imageStats
-
     def createMiHistogram(self, bins=256):
         """creates histogram using the average values of the images"""
         mi_s = np.array(list(map(lambda x:np.round(x.getMi()), self.imageStats)))
         _ = plt.hist(mi_s, bins=bins, color = 'blue', alpha = 0.5)
-        #plt.show()
-
     def createSdHistogram(self, bins=256):
         """creates a histogram using the standard deviations of the images"""
         sd_s = np.array(list(map(lambda x:np.round(x.getSd()), self.imageStats)))
         _ = plt.hist(sd_s, bins=bins, color = 'red', alpha = 0.5)
-        #plt.show()
-
     def createMedHistogram(self, bins=256):
         """"creates a histogram using the median values of the images"""
         med_s = np.array(list(map(lambda x:np.round(x.getMed()), self.imageStats)))
         _ = plt.hist(med_s, bins=bins, color = 'green', alpha = 0.5)
-        #plt.show()
-
     def filterData(self, modifier):
         """Modifies dataset using given filter function"""
         for i in range(256):
@@ -56,19 +49,15 @@ class GalleryAnalyzer:
         """Returns average value of dataset that includes all pixels from all images in a directory"""
         intensities = np.arange(256)
         return np.average(intensities, weights=self.freqs)
-
     def getVar(self):
         """Returns variance of dataset that includes all pixels from all images in a directory"""
         mi = self.getMi()
         intensities = np.arange(256)
         dev = self.freqs * (intensities - mi) ** 2
         return dev.sum() / (self.freqs.sum() - 1)
-
     def getSd(self):
         """Returns standard deviation of dataset that includes all pixels from all images in a directory"""
-        intensities = np.arange(256)
         return np.sqrt(self.getVar())
-
     def createCommonHistogram(self, cutEdges = 0):
         """Creates histogram using dataset of pixels from all images in a directory"""
         freq = self.freqs
@@ -77,7 +66,6 @@ class GalleryAnalyzer:
         bins = np.arange(257)
         intensities = np.arange(256)
         positions = range(len(intensities))
-        #  plt.bar(positions, self.freq, tick_label=intensities)
         plt.hist(intensities, bins=bins, weights=self.freqs)
 
 class Stats:
