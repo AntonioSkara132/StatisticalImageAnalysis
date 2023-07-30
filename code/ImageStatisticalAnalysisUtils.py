@@ -81,6 +81,7 @@ class GalleryAnalyzer:
 class Stats:
     "Calculates statistical information for given data"
     data = []
+
     def __init__(self, data):
         self.data = data
 
