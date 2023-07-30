@@ -17,10 +17,10 @@ python Main.py "PATH_TO_DIR"
 
 #### Examples
 
-Example with test data within a repository
+Example with a test_data, position yourself in a StatisticalImageAnalysis directory
 
 ```
-python Main.py "test_data/*jpg" 
+python code/Main.py "test_data/*gif" 
 ```
 
 ### TODO
