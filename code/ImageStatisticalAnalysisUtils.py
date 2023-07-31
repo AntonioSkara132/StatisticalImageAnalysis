@@ -18,6 +18,7 @@ class GalleryAnalyzer:
     "Computes statistical analysis for a given set of images, and creates histograms for working with Matlib.pyplot module"
     imageStats = []
     freqs = np.zeros([256])
+    histogram_data = []
 
     def __init__(self, file_dir: "str"):
         files = get_file_paths(file_dir)
@@ -31,20 +32,17 @@ class GalleryAnalyzer:
         """returns list of Stats instances, Stats store statistical information od images in dataset"""
         return self.imageStats
 
-    def createMiHistogram(self, bins=256):
+    def getMiData(self):
         """creates histogram using the average values of the images"""
-        mi_s = np.array(list(map(lambda x:x.getMi(), self.imageStats)))
-        _ = plt.hist(mi_s, bins=bins, color = 'blue', alpha = 0.5, rwidth = 0.7, range = (0, 255))
+        return np.array(list(map(lambda x:x.getMi(), self.imageStats)))
 
-    def createSdHistogram(self, bins=256):
+    def getSdData(self):
         """creates a histogram using the standard deviations of the images"""
-        sd_s = np.array(list(map(lambda x:x.getSd(), self.imageStats)))
-        _ = plt.hist(sd_s, bins=bins, color = 'red', alpha = 0.5, rwidth = 0.7, range = (0, 255))
+        return np.array(list(map(lambda x:x.getSd(), self.imageStats)))
 
-    def createMedHistogram(self, bins=256):
+    def getMedData(self):
         """"creates a histogram using the median values of the images"""
-        med_s = np.array(list(map(lambda x:x.getMed(), self.imageStats)))
-        _ = plt.hist(med_s, bins=bins, color='green', alpha = 0.5, rwidth = 0.7, range = (0, 255))
+        return np.array(list(map(lambda x:x.getMed(), self.imageStats)))
 
     def filterData(self, modifier):
         """Modifies dataset using given filter function"""
@@ -67,7 +65,7 @@ class GalleryAnalyzer:
         """Returns standard deviation of dataset that includes all pixels from all images in a directory"""
         return np.sqrt(self.getVar())
 
-    def createCommonHistogram(self, cutEdges = 0):
+    def createHistogram(self, cutEdges = 0):
         """Creates histogram using dataset of pixels from all images in a directory"""
         freq = self.freqs
         for i in range(cutEdges):
@@ -75,7 +73,7 @@ class GalleryAnalyzer:
         bins = np.arange(257)
         intensities = np.arange(256)
         positions = range(len(intensities))
-        plt.hist(intensities, bins=bins, weights=self.freqs)
+        plt.hist(intensities, bins=bins, weights=self.freqs, density=True)
 
 
 class Stats:
