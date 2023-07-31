@@ -37,7 +37,7 @@ def main():
 
     if len(sys.argv) > 2:
         fig1.savefig(sys.argv[2] % "pixel_histogram")
-        fig2.savefig(sys.argv[2] % "med_mi_sd_histogram1")
+        fig2.savefig(sys.argv[2] % "med_mi_sd_histogram")
     else:
         plt.show()
 
