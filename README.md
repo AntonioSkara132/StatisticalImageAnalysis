@@ -1,10 +1,12 @@
 # StatisticalImageAnalysis
-Simple image statistical analysis software
+Simple image statistical analysis and data visualization software.
+
+###About
+Purpose of this software is to visualize image data using histograms, with the respect to the matplotlib.pyplot module
 
 ### Usage
 
 1. Install requirements by running the following command:
-
 ```
 pip install -r requirements.txt
 ```
