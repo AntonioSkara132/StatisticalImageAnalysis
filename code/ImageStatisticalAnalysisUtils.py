@@ -15,7 +15,7 @@ def addFrequencies(freqs, list):
 
 
 class GalleryAnalyzer:
-    "Calculates statistical analysis for a given set of images, and creates histograms"
+    "Computes statistical analysis for a given set of images, and creates histograms for working with Matlib.pyplot module"
     imageStats = []
     freqs = np.zeros([256])
 
@@ -33,18 +33,18 @@ class GalleryAnalyzer:
 
     def createMiHistogram(self, bins=256):
         """creates histogram using the average values of the images"""
-        mi_s = np.array(list(map(lambda x:np.round(x.getMi()), self.imageStats)))
-        _ = plt.hist(mi_s, bins=bins, color = 'blue', alpha = 0.5)
+        mi_s = np.array(list(map(lambda x:x.getMi(), self.imageStats)))
+        _ = plt.hist(mi_s, bins=bins, color = 'blue', alpha = 0.5, rwidth = 0.7, range = (0, 255))
 
     def createSdHistogram(self, bins=256):
         """creates a histogram using the standard deviations of the images"""
-        sd_s = np.array(list(map(lambda x:np.round(x.getSd()), self.imageStats)))
-        _ = plt.hist(sd_s, bins=bins, color = 'red', alpha = 0.5)
+        sd_s = np.array(list(map(lambda x:x.getSd(), self.imageStats)))
+        _ = plt.hist(sd_s, bins=bins, color = 'red', alpha = 0.5, rwidth = 0.7, range = (0, 255))
 
     def createMedHistogram(self, bins=256):
         """"creates a histogram using the median values of the images"""
-        med_s = np.array(list(map(lambda x:np.round(x.getMed()), self.imageStats)))
-        _ = plt.hist(med_s, bins=bins, color = 'green', alpha = 0.5)
+        med_s = np.array(list(map(lambda x:x.getMed(), self.imageStats)))
+        _ = plt.hist(med_s, bins=bins, color='green', alpha = 0.5, rwidth = 0.7, range = (0, 255))
 
     def filterData(self, modifier):
         """Modifies dataset using given filter function"""
