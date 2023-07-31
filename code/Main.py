@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def main():
 
-    #dir_path = "/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/*.jpg"
+    #dir_path = "/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/test_data/*.gif"
 
     if sys.argv[0]:
         dir_path = sys.argv[1]
@@ -21,7 +21,7 @@ def main():
     MyGa.createMiHistogram(bins = 32)
     MyGa.createSdHistogram(bins = 32)
     _ = plt.legend(['Median', 'Average', 'Standard Deviation'])
-    plt.title("Statistical data")
+    plt.title("Comparison of median, average and standard deviation values")
     plt.show()
 
     if len(sys.argv) > 2:
