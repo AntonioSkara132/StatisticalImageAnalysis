@@ -18,7 +18,7 @@ def main():
     MyGa.createHistogram()
     #MyGa.createHistogram(cutEdges=2)
     plt.title("Normalized Pixel distribution")
-    plt.ylabel("Frequency")
+    plt.ylabel("Frequency_normalized")
     plt.xlabel("Intensities")
 
     fig2 = plt.figure()
