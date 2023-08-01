@@ -1,5 +1,5 @@
 import sys
-import ImageStatisticalAnalysisUtils as isa
+import galleryanalyzer as isa
 import matplotlib.pyplot as plt
 
 def main():
@@ -16,13 +16,6 @@ def main():
     fig1 = plt.figure()
     MyGa.createCommonHistogram()
     plt.title("Pixel distribution")
-    fig2 = plt.figure()
-    MyGa.createMedHistogram(bins = 32)
-    MyGa.createMiHistogram(bins = 32)
-    MyGa.createSdHistogram(bins = 32)
-    _ = plt.legend(['Median', 'Average', 'Standard Deviation'])
-    plt.title("Comparison of median, average and standard deviation values")
-    plt.show()
 
     if len(sys.argv) > 2:
         fig1.savefig(sys.argv[2] % "pixel_histogram")

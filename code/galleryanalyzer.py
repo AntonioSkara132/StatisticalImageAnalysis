@@ -2,16 +2,9 @@ import glob
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-
-def get_file_paths(directory_path: 'str') -> list:
-    """Return a list of paths matching a pathname pattern."""
-    return glob.glob(directory_path)
-
-def addFrequencies(freqs, list):
-    """Counts index values"""
-    for i in list:
-        freqs[i] += 1
-    return freqs
+from stats import Stats
+from utils import getFilePaths
+from utils import addFrequencies
 
 
 class GalleryAnalyzer:
@@ -20,7 +13,7 @@ class GalleryAnalyzer:
     freqs = np.zeros([256])
 
     def __init__(self, file_dir: "str"):
-        files = get_file_paths(file_dir)
+        files = getFilePaths(file_dir)
         #print(files)
         for image in files:
             data = np.array(Image.open(image).convert('L')).ravel().astype(int)
@@ -28,7 +21,7 @@ class GalleryAnalyzer:
             self.imageStats.append((Stats(data)))
 
     def getImageStatistics(self) -> list:
-        """returns list of Stats instances, Stats store statistical information od images in dataset"""
+        """returns list of Stats instances, Stats stSore statistical information od images in dataset"""
         return self.imageStats
 
     def createMiHistogram(self, bins=256):
@@ -77,32 +70,4 @@ class GalleryAnalyzer:
         positions = range(len(intensities))
         plt.hist(intensities, bins=bins, weights=self.freqs)
 
-
-class Stats:
-    "Calculates statistical information for given data"
-    data = []
-
-    def __init__(self, data):
-        self.data = data
-
-    def plotHistogram(self):
-        """plots histogram of given data"""
-        _ = plt.hist(self.data, bins=256)
-        plt.show()
-
-    def getMi(self) -> float:
-        """calculates average value of data"""
-        return np.average(self.data)
-
-    def getSd(self) -> float:
-        """calculates standard deviation of data"""
-        return np.std(self.data)
-
-    def getMed(self) -> float:
-        """calculates median of data"""
-        return np.median(self.data)
-
-    def getData(self):
-        """returns data"""
-        return self.data
 
