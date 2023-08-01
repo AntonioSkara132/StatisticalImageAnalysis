@@ -84,7 +84,7 @@ class Stats:
         self.data = data
 
     def plotHistogram(self):
-        """plots histogram of given data"""
+        """plots histogram using sdata"""
         _ = plt.hist(self.data, bins=256)
         plt.show()
 
@@ -101,6 +101,5 @@ class Stats:
         return np.median(self.data)
 
     def getData(self):
-        """returns data"""
         return self.data
 
