@@ -16,11 +16,13 @@ def main():
     MyGa = GalleryAnalyzer(dir_path)
     fig1 = plt.figure()
     MyGa.createKDEHistogram()
+    plt.title("Pixel distribution of entire dataset")
     fig2 = plt.figure()
     MyGa.createHistogram()
+    plt.title("Density aproximation for pixel intensities of entire dataset")
     if len(sys.argv) > 2:
-        fig1.savefig(sys.argv[2] % "pixel_distribution")
-        fig2.savefig(sys.argv[2]) % "smoothed_pixel_distribution"
+        fig1.savefig(sys.argv[2] % "smoothed_pixel_distribution")
+        fig2.savefig(sys.argv[2] % "pixel_distribution")
     else:
         plt.show()
 

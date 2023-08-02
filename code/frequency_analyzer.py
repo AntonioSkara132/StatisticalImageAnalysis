@@ -66,3 +66,4 @@ class GalleryAnalyzer:
         """Creates histogram using dataset of pixels from all images in a directory"""
         data = {'Frequency': self.freqs / np.sum(self.freqs), 'Intensity': np.arange(256)}
         sns.kdeplot(data, x='Intensity', weights='Frequency', bw_adjust=0.1)
+        plt.ylabel("Frequency")
