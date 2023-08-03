@@ -63,8 +63,8 @@ class GalleryAnalyzer:
         sns.histplot(data, x='Intensity', weights='Frequency', bins=bins)
         plt.ylabel('Frequency')
 
-    def createKDEHistogram(self):
+    def createKDEHistogram(self, bw_adjust=0.06):
         """Creates histogram using dataset of pixels from all images in a directory"""
         data = {'Frequency': self.freqs / np.sum(self.freqs), 'Intensity': np.arange(256)}
-        sns.kdeplot(data, x='Intensity', weights='Frequency', bw_adjust=0.1)
+        sns.kdeplot(data, x='Intensity', weights='Frequency', bw_adjust=bw_adjust)
         plt.ylabel("Frequency")
