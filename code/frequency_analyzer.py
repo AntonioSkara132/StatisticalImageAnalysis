@@ -57,13 +57,15 @@ class GalleryAnalyzer:
         """Returns standard deviation of dataset that includes all pixels from all images in a directory"""
         return np.sqrt(self.getVar())
 
-    def createHistogram(self, bins=255):
+    def createHistogram(self, bins=255, cutEdges=False):
         """Creates histogram using dataset of pixels from all images in a directory"""
-        data = {'Frequency': self.freqs/np.sum(self.freqs), 'Intensity': np.arange(256)}
-        sns.histplot(data, x='Intensity', weights='Frequency', bins=bins)
+        freqs = self.freqs
+        if cutEdges: freqs[0] = 0; freqs[255] = 0
+        data = {'Frequency': freqs/np.sum(freqs), 'Intensity': np.arange(256)}
+        sns.histplot(data, x='Intensity', weights='Frequency', bins=bins, discrete=True)
         plt.ylabel('Frequency')
 
-    def createKDEHistogram(self, bw_adjust=0.06):
+    def createKDEHistogram(self, bw_adjust=0.065):
         """Creates histogram using dataset of pixels from all images in a directory"""
         data = {'Frequency': self.freqs / np.sum(self.freqs), 'Intensity': np.arange(256)}
         sns.kdeplot(data, x='Intensity', weights='Frequency', bw_adjust=bw_adjust)

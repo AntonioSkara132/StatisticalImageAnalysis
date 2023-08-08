@@ -2,19 +2,27 @@
 Simple image statistical analysis and data visualization software.
 
 ###About
-Purpose of this software is to visualize image data using histograms, with the respect to the matplotlib.pyplot module
+Purpose of this software is to statistically analyze image "defects", using some basic preprocessing image techniques beforehand.
 
 ### Usage
+
+To run statistical analysis tool:
 
 1. Install requirements by running the following command:
 ```
 pip install -r requirements.txt
 ```
 
-2. Run the `Main.py` script with the following arguments:
+2. Run image preprocessing tool on your dataset
 
 ```
-python Main.py "PATH_TO_DIR" [OPTIONAL] "PATH_TO_SAVE_RESULTS"
+python code/process.py "DATASET DIRECTORY" "./processed_data/" [OPTIONAL] VALUE_OF_GAMMA
+```
+
+3. Run image analysis tool
+```
+python code/Main.py "processed_data/*.jpg" "PATH TO SAVE RESULTS"
+
 ```
 
 #### Examples
@@ -36,3 +44,5 @@ python code/Main.py "test_data/*.gif"
 
 - [ ] Clean up code to make it reusable for other modalities and following pep-8 standards
 - [ ] Add more features
+
+
