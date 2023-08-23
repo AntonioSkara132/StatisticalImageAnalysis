@@ -30,13 +30,14 @@ python code/Main.py "processed_data/*.jpg" "PATH TO SAVE RESULTS" 1
 Example with directly saving the results to a specific path:
 
 ```
-python code/Main.py "data/*.jpg" "./statistics_%s.png"
+python code/Main.py "./processed_data/" "rezultati.xlsx"
+
 ```
 
 Example without saving the results
 
 ```
-python code/Main.py "test_data/*.gif"
+python code/Main.py 
 ```
 
 ### TODO
