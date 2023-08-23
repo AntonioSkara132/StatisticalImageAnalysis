@@ -21,7 +21,7 @@ python code/process.py "DATASET DIRECTORY" "./processed_data/" [OPTIONAL] VALUE_
 
 3. Run image analysis tool
 ```
-python code/Main.py "processed_data/*.jpg" "PATH TO SAVE RESULTS"
+python code/Main.py "processed_data/*.jpg" "PATH TO SAVE RESULTS" 1
 
 ```
 
@@ -38,7 +38,6 @@ Example without saving the results
 ```
 python code/Main.py "test_data/*.gif"
 ```
-
 
 ### TODO
 

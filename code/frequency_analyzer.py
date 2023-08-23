@@ -4,6 +4,8 @@ from stats import Stats
 import utils
 from PIL import Image
 import seaborn as sns
+from tqdm import tqdm
+import cv2
 import pandas as pd
 
 class GalleryAnalyzer:
@@ -12,13 +14,16 @@ class GalleryAnalyzer:
     freqs = np.zeros([256])
     histogram_data = []
 
-    def __init__(self, file_dir: 'string'):
-        files = utils.get_file_paths(file_dir)
-        #print(files)
-        for image in files:
-            data = np.array(Image.open(image).convert('L')).ravel().astype(int)
+    def __init__(self, dir_path):
+        files = utils.get_file_paths(dir_path + "*.jpg")
+        files.sort()
+        progress_bar = tqdm(total=100)
+        for i in range(len(files)):
+            progress_bar.update(100/len(files))
+            data = cv2.imread(files[i], cv2.IMREAD_GRAYSCALE)
             self.freqs = utils.addFrequencies(self.freqs, data)
             self.imageStats.append((Stats(data)))
+        progress_bar.close()
 
     def getImageStatistics(self) -> list:
         """returns list of Stats instances, Stats store statistical information od images in dataset"""
@@ -57,6 +62,11 @@ class GalleryAnalyzer:
         """Returns standard deviation of dataset that includes all pixels from all images in a directory"""
         return np.sqrt(self.getVar())
 
+    def getMed(self):
+        """Returns median of dataset that includes all pixels from all images in a directory"""
+        intensities = np.arange(256)
+        return utils.calculate_median_from_counts(intensities, self.freqs)
+
     def createHistogram(self, bins=255, cutEdges=False):
         """Creates histogram using dataset of pixels from all images in a directory"""
         freqs = self.freqs
@@ -70,3 +80,10 @@ class GalleryAnalyzer:
         data = {'Frequency': self.freqs / np.sum(self.freqs), 'Intensity': np.arange(256)}
         sns.kdeplot(data, x='Intensity', weights='Frequency', bw_adjust=bw_adjust)
         plt.ylabel("Frequency")
+
+    def showMeasuers(self):
+        measures = ["OV. average", "OV. median", "OV. standard\ndeviation"]
+        values = [self.getMi(), self.getMed(), self.getSd()]
+        plt.barh(measures, values)
+        xtick_positions = np.linspace(0, max(values), 20)
+        plt.yticks(rotation=90)
