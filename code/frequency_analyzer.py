@@ -12,7 +12,6 @@ class GalleryAnalyzer:
     "Computes statistical analysis for a given set of images, and creates histograms for working with Matlib.pyplot module"
     imageStats = []
     freqs = np.zeros([256])
-    histogram_data = []
 
     def __init__(self, dir_path):
         files = utils.get_file_paths(dir_path + "*.jpg")
