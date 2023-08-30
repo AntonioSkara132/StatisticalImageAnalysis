@@ -24,22 +24,21 @@ python code/process.py "DATASET DIRECTORY" "./processed_data/" [OPTIONAL] VALUE_
 python code/Main.py "processed_data/*.jpg" "PATH TO SAVE RESULTS" 1
 
 ```
-
-#### Examples
-
-Example with directly saving the results to a specific path:
+[OPTIONAL_TOOL] Splits coco format into patches
+```
+python code/cocoSpliter.py [INPUT_JSON] [OUTPUT_JSON] [ORIGINAl_IMAGES_DIRECTORY] IMAGE_HEIGHT IMAGE_WIDTH
 
 ```
-python code/Main.py "./processed_data/" "rezultati.xlsx"
-
-```
-
 Example without saving the results
 
 ```
 python code/Main.py 
 ```
+Example of cocoSpliter
+```
+python code/cocoSpliter.py "annotations/_annotations.coco_train.json" "output.json" "/train/" 200 200
 
+```
 ### TODO
 
 - [ ] Clean up code to make it reusable for other modalities and following pep-8 standards

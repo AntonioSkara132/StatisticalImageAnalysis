@@ -3,8 +3,9 @@ import utils
 import json
 from tqdm import tqdm
 import sys
-
-
+import numpy as np
+import cv2
+from PIL import Image
 
 def polygon_area(x_s, y_s):
     n = len(x_s)
@@ -21,15 +22,21 @@ def polygon_area(x_s, y_s):
     return round(0.5 * abs(area),2)
 
 def main():
-    save_json = "_annotations.coco.json"
-    if len(sys.argv) > 1:
+    dir_json: 'str'
+    save_json: 'str'
+    images_path: ''
+    patch_height: 'int'
+    patch_width: 'int'
+    if len(sys.argv) > 5:
         dir_json = sys.argv[1]
-        if len(sys.argv > 2):
-            save_json = sys.argv[2]
+        save_json = sys.argv[2]
+        images_path = sys.argv[3]
+        patch_height = int(sys.argv[4])
+        patch_width = int(sys.argv[5])
     else:
-        print("No directory specified!")
+        print("Some of the parameters are missing")
         exit(-1)
-
+    print(patch_width, patch_height)
     data = coco.COCO(dir_json)
     info = {}
     licenses = []
@@ -46,15 +53,16 @@ def main():
 
     categories.append({"id": 0, "name": "holes", "supercategory": "none"})
 
-    patch_height = 200
-    patch_width = 200
-
     id = 0
 
     for image_id in tqdm(range(len(files))):
         ann_ids = data.getAnnIds(imgIds=image_id, catIds=1)
-        for y_start in range(0, 2000, 200):
-            for x_start in range(0, 2400, 200):
+        image = cv2.imread(images_path + data.imgs[image_id]["file_name"], cv2.IMREAD_GRAYSCALE)
+        for y_start in range(0, 2000, patch_height):
+            for x_start in range(0, 2400, patch_width):
+                patch = image[x_start:x_start + patch_width, y_start + patch_height]
+                if np.sum(patch) == 0:
+                    continue
                 images.append({"id": id, "license": 1, "file_name": "patch_" + str(id) + ".jpg", "height": patch_height, "width": patch_width,
                                "date_captured": "2023-08-21T17:48:20+00:00"})
                 id+=1
@@ -67,7 +75,7 @@ def main():
                     new_segmentation = []
                     for i in range(len(x_s)):
                         #print(x_s[i], y_s[i], x_start, y_start)
-                        if (x_start <= x_s[i] < (x_start+200)) and (y_start <= y_s[i] < (y_start+200)):
+                        if (x_start <= x_s[i] < (x_start + patch_height)) and (y_start <= y_s[i] < (y_start + patch_height)):
                             #print(x_s[i], y_s[i], x_start, y_start)
                             new_segmentation.append(round(x_s[i] - x_start, 2))
                             new_segmentation.append(round(y_s[i] - y_start, 2))
@@ -88,8 +96,8 @@ def main():
                              "iscrowd": 0}
                     annotations.append(annot)
     new_coco = {"info": info, "licenses": licenses, "categories": categories,  "images": images, "annotations": annotations}
-    with open("../annotations/_annotations.coco.json", "w") as json_file:
-        json.dump(new_coco, save_json)
+    with open(save_json, "w") as json_file:
+        json.dump(new_coco, json_file)
 
 if __name__ == "__main__":
         main()
