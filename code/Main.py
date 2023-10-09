@@ -13,13 +13,13 @@ def main():
         if len(sys.argv) > 1:
             dir_path = sys.argv[1]
         else:
-            dir_path = "/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/*jpg"
+            dir_path = "/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/all_images/*.jpg"
     else:
         print("No directory specified!")
         exit(-1)
 
     progress_bar = tqdm(total=100)
-    MyGa = GalleryAnalyzer(dir_path)
+    MyGa = GalleryAnalyzer(dir_path, False)
     figures = []
     progress_bar.update(20)
 
@@ -29,7 +29,7 @@ def main():
     progress_bar.update(10)
 
     figures.append(plt.figure())
-    MyGa.createHistogram()
+    MyGa.createHistogram(cutEdges=False)
     plt.title("Pixel distribution of entire dataset")
     progress_bar.update(10)
 

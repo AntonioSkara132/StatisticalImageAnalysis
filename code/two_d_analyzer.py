@@ -9,7 +9,7 @@ class TwoDAnalyzer:
     sum_matrix: 'np.ndarray'
     number_of_images: 'int'
     def __init__(self, dir_path):
-        files = utils.get_file_paths(dir_path + "*.jpg")
+        files = utils.get_file_paths(dir_path)
         files.sort()
         image1 = np.array(Image.open(files[0]))
         self.sum_matrix = np.zeros(

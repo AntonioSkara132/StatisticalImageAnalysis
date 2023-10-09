@@ -53,9 +53,8 @@ def visualize_coco(ann_file):
 
     plt.show()
 
-ann_file = '/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/annotations/_annotations.coco_train.json'
-visualize_coco(ann_file)
-#visualizeDataset("/home/antonio123/Downloads/lth.v10i (1).png-mask-semantic/train/*.png")
+image = cv2.imread("/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/patches_masks/patch_11.jpg", cv2.IMREAD_GRAYSCALE)
+utils.showImage(image)
 
 
 

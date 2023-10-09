@@ -13,15 +13,21 @@ class GalleryAnalyzer:
     imageStats = []
     freqs = np.zeros([256])
 
-    def __init__(self, dir_path):
-        files = utils.get_file_paths(dir_path + "*.jpg")
+    def __init__(self, dir_path, filter_zero = False):
+        print(dir_path)
+        print("/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/all_images/*.jpg")
+        print("/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/all_images/*.jpg" == dir_path)
+        files = utils.get_file_paths(dir_path)
         files.sort()
+        print(files)
         progress_bar = tqdm(total=100)
         for i in range(len(files)):
             progress_bar.update(100/len(files))
-            data = cv2.imread(files[i], cv2.IMREAD_GRAYSCALE)
+            data = cv2.imread(files[i], cv2.IMREAD_GRAYSCALE).ravel()
             self.freqs = utils.addFrequencies(self.freqs, data)
+            if filter_zero: self.freqs[0] = 0
             self.imageStats.append((Stats(data)))
+
         progress_bar.close()
 
     def getImageStatistics(self) -> list:
@@ -51,7 +57,7 @@ class GalleryAnalyzer:
         return np.average(intensities, weights=self.freqs)
 
     def getVar(self):
-        """Returns variance of dataset that includes all pixels from all images in a directory"""
+        """Returns variance of dataset that includes/home/antonio123/workspace/Github_projects/StatisticalImageAnalysis/data/all_images all pixels from all images in a directory"""
         mi = self.getMi()
         intensities = np.arange(256)
         dev = self.freqs * (intensities - mi) ** 2
@@ -69,7 +75,10 @@ class GalleryAnalyzer:
     def createHistogram(self, bins=255, cutEdges=False):
         """Creates histogram using dataset of pixels from all images in a directory"""
         freqs = self.freqs
-        if cutEdges: freqs[0] = 0; freqs[255] = 0
+        if cutEdges:
+            freqs[0] = 0
+            freqs[255] = 0
+        print(freqs)
         data = {'Frequency': freqs/np.sum(freqs), 'Intensity': np.arange(256)}
         sns.histplot(data, x='Intensity', weights='Frequency', bins=bins, discrete=True)
         plt.ylabel('Frequency')

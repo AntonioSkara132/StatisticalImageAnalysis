@@ -1,6 +1,9 @@
 import glob
+
+import matplotlib.pyplot as plt
 import xlsxwriter as xls
 import numpy as np
+import cv2
 
 def get_file_paths(directory_path: 'str') -> list:
     """Return a list of paths matching a pathname pattern."""
@@ -48,3 +51,13 @@ def calculate_median_from_counts(values, counts):
     median_value = sorted_data[median_position][0]
 
     return median_value
+
+def filterImage(image: 'np.ndarray', desired_intensity):
+    return cv2.inRange(image, desired_intensity, desired_intensity)
+
+def showImage(image: np.ndarray):
+    plt.figure()
+    plt.imshow(image)
+    plt.colorbar()
+    plt.show()
+
